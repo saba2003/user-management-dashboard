@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div class="header">
+    <h1>
+        Dashboard
+    </h1>
+    <p-splitbutton 
+        label="Profile" 
+        (onClick)="profile()"
+        [model]="menu"
+    />
+</div>
+<router-outlet />

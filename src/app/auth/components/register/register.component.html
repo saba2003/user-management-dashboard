@@ -1,1 +1,44 @@
-<p>register works!</p>
+<form class="form register" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <p-floatlabel>
+        <input 
+            type="text" 
+            formControlName="username"
+            pInputText
+            id="over_label"
+        >
+        <label for="over_label">Enter Username</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input 
+            type="text" 
+            formControlName="email"
+            pInputText
+            id="over_label"
+        >
+        <label for="over_label">Enter Email</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input 
+            type="text" 
+            formControlName="password"
+            pInputText
+            id="over_label"
+        >
+        <label for="over_label">Enter Password</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input 
+            type="text" 
+            formControlName="passwordConfirm"
+            pInputText
+            id="over_label"
+        >
+        <label for="over_label">Confirm Password</label>
+    </p-floatlabel>
+    
+    <p-button type="submit" label="Submit"/>
+    <p>already registered? <a href="/login">login</a></p>
+</form>
