@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormsModule, FormGroup, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -27,8 +27,8 @@ export class RegisterComponent implements OnInit {
   private userService = inject(UserService)
   private router = inject(Router)
 
-  errorMessage: string = '';
-  successMessage: string = '';
+  successMessage: WritableSignal<string> = signal('');
+  errorMessage: WritableSignal<string> = signal('');
 
   ngOnInit(): void {
     this.registerForm = this.formbuilder.group({
@@ -50,10 +50,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    this.errorMessage = ''
-    this.successMessage = ''
+    this.errorMessage.set('')
+    this.successMessage.set('')
     if (this.registerForm.invalid) {
-      this.errorMessage = 'Please fill all fields correctly.';
+      this.errorMessage.set('Please fill all fields correctly.');
       return;
     }
 
@@ -66,12 +66,12 @@ export class RegisterComponent implements OnInit {
 
     this.userService.registerUser(newUser).subscribe({
       next: async () => {
-        this.successMessage = `User registered successfully!`;
+        this.successMessage.set(`User registered successfully!`);
         this.registerForm.reset();
         await delay(3000);
         this.gotologin()
       },
-      error: (err) => this.errorMessage = err.message
+      error: (err) => this.errorMessage.set(err.message) 
     });
 
   }

@@ -66,12 +66,12 @@
         <a class="text-blue-500 cursor-pointer" (click)="gotologin()">Login</a>
       </p>
   
-      <p *ngIf="errorMessage && !successMessage" class="text-red-600 text-center mt-2">
-        {{ errorMessage }}
+      <p *ngIf="errorMessage() && !successMessage()" class="text-red-600 text-center mt-2">
+        {{ errorMessage() }}
       </p>
   
-      <p *ngIf="successMessage && !errorMessage" class="text-green-600 text-center mt-2">
-        {{ successMessage }}
+      <p *ngIf="successMessage() && !errorMessage()" class="text-green-600 text-center mt-2">
+        {{ successMessage() }}
       </p>
     </form>
   </div>
