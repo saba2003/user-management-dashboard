@@ -6,7 +6,6 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../services/auth.service';
 import { User } from '../../../models/IUser.model';
-import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,14 +17,12 @@ import { Router, RouterLink } from '@angular/router';
     InputTextModule,
     FloatLabel,
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   private formbuilder = inject(FormBuilder)
   private userService = inject(UserService)
-  private router = inject(Router)
 
   successMessage: WritableSignal<string> = signal('');
   errorMessage: WritableSignal<string> = signal('');
@@ -46,34 +43,36 @@ export class RegisterComponent implements OnInit {
   }
 
   gotologin(){
-    this.router.navigateByUrl('login')
+    this.userService.navigateTo("login")
   }
 
   onSubmit(){
     this.errorMessage.set('')
     this.successMessage.set('')
-    if (this.registerForm.invalid) {
-      this.errorMessage.set('Please fill all fields correctly.');
-      return;
-    }
 
     const { username, email, password } = this.registerForm.value;
-    const newUser: User = { id : 0, username, email, password, role: 'user' };
+    this.userService.getUserCount().subscribe(count => {
+      const newUser: User = { 
+        id: (count + 1).toString(),
+        username, 
+        email, 
+        password, 
+        role: 'user' 
+      };
+    
+      this.userService.registerUser(newUser).subscribe({
+        next: async () => {
+          this.successMessage.set(`User registered successfully!`);
+          this.registerForm.reset();
+          await delay(2000);
+          this.gotologin()
+        },
+        error: (err) => this.errorMessage.set(err.message) 
+      });
+    });
 
     function delay(ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-
-    this.userService.registerUser(newUser).subscribe({
-      next: async () => {
-        this.successMessage.set(`User registered successfully!`);
-        this.registerForm.reset();
-        await delay(3000);
-        this.gotologin()
-      },
-      error: (err) => this.errorMessage.set(err.message) 
-    });
-
   }
-  
 }

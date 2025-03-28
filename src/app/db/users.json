@@ -4,25 +4,13 @@
       "id": "1",
       "username": "saba",
       "email": "admin@mail.com",
+      "password": "123321",
       "role": "admin"
     },
     {
       "id": "2",
       "username": "luka",
       "email": "user@mail.com",
-      "role": "user"
-    },
-    {
-      "id": 0,
-      "username": "saba",
-      "email": "user@mail",
-      "password": "123321",
-      "role": "user"
-    },
-    {
-      "id": 0,
-      "username": "saba",
-      "email": "user1@mail",
       "password": "123321",
       "role": "user"
     }

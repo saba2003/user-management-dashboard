@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { IUser } from '../models/IUser.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,11 @@ export class DashboardComponent {
   }
 
   profile(){
-    this.router.navigateByUrl(`dashboard/${localStorage.getItem("user")}`);
+    const currentUser = localStorage.getItem("currentUser")
+    if(currentUser) {
+      const user: IUser = JSON.parse(currentUser)
+      this.router.navigateByUrl(`dashboard/${user.id}`);
+    }
   }
 
   dashboard(){

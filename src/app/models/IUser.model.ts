@@ -1,5 +1,5 @@
 export interface IUser {
-    id: number;
+    id: string;
     username: string;
     email: string;
     password: string;
@@ -7,14 +7,14 @@ export interface IUser {
 }
 
 export class User {
-    id: number;
+    id: string;
     username: string;
     email: string;
     password: string;
     role: string;
 
     constructor () {
-        this.id = 0;
+        this.id = "";
         this.username = "";
         this.email = "";
         this.password = "";
