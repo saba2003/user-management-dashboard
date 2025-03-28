@@ -28,12 +28,12 @@ export class DashboardComponent {
     const currentUser = localStorage.getItem("currentUser")
     if(currentUser) {
       const user: IUser = JSON.parse(currentUser)
-      this.router.navigateByUrl(`dashboard/${user.id}`);
+      this.router.navigateByUrl(`dashboard/users/${user.id}`);
     }
   }
 
   dashboard(){
-    this.router.navigateByUrl("dashboard");
+    this.router.navigateByUrl("dashboard/users");
   }
 
   logOut(){

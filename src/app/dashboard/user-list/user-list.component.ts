@@ -1,11 +1,13 @@
-import { Component, inject, Signal, signal, WritableSignal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { IUser } from '../../models/IUser.model';
 import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @Component({
   selector: 'app-user-list',
@@ -13,16 +15,22 @@ import { toSignal } from '@angular/core/rxjs-interop';
     RouterModule,
     CommonModule,
     CardModule,
-    SkeletonModule
+    SkeletonModule,
+    ButtonModule,
+    ConfirmPopupModule,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent {
-  users: Signal<IUser[] | undefined> = signal(undefined);
-  private userService = inject(UserService)
+  users$: Observable<IUser[] | undefined>;
+  private router: Router = inject(Router)
 
-  constructor(){
-    this.users = toSignal(this.userService.fetchUsers());
+  constructor(service: UserService){
+    this.users$ = service.getUsers();
+  }
+
+  details(id: string){
+    this.router.navigateByUrl(`dashboard/users/${id}`);
   }
 }

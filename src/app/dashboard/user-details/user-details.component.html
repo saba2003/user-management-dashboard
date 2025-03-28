@@ -1,14 +1,19 @@
-<p-card *ngIf="user; else loading">
-    <ng-template pTemplate="header">
-      <h2>{{ user.username }}</h2>
-    </ng-template>
-    <ng-template pTemplate="content">
-      <p><strong>ID:</strong> {{ user.id }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-    </ng-template>
-  </p-card>
-  
-  <ng-template #loading>
-    <p-skeleton width="100%" height="3rem"></p-skeleton>
+<p-card *ngIf="user; else loading" class="flex items-center justify-center mt-20" [style]="{ width: '25rem', overflow: 'hidden' }">
+  <ng-template #subtitle> User Details </ng-template>
+  <p>
+    <strong>ID:</strong> {{ user.id }} <br />
+    <strong>Email:</strong> {{ user.email }} <br />
+    <strong>Username:</strong>  {{ user.username }}
+
+  </p>
+  <ng-template #footer>
+    <div class="flex gap-4 mt-1">
+      <p-button label="Edit" severity="info" class="w-full" [outlined]="true" styleClass="w-full" />
+      <p-button label="Delete" severity="danger" class="w-full" styleClass="w-full" (onClick)="deleteUser(user.id)"/>
+    </div>
   </ng-template>
-  
+</p-card>
+
+<ng-template #loading>
+  <p-skeleton width="100%" height="3rem"></p-skeleton>
+</ng-template>

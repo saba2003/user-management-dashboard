@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { dashboardRoutes } from './dashboard/dashboard.routes';
+import { NotfoundComponent } from './core/errors/notfound/notfound.component';
 
 export const routes: Routes = [
     { 
@@ -17,5 +18,5 @@ export const routes: Routes = [
         component: DashboardComponent,
         children: dashboardRoutes
     },
-    { path: "**", component: LoginComponent },
+    { path: "**", component: NotfoundComponent },
 ];
