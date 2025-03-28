@@ -4,6 +4,9 @@ import { ReactiveFormsModule, FormBuilder, FormsModule, FormGroup, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { UserService } from '../../services/auth.service';
+import { User } from '../../../models/IUser.model';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     ButtonModule,
     InputTextModule,
-    FloatLabel
+    FloatLabel,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -21,6 +24,11 @@ import { InputTextModule } from 'primeng/inputtext';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   private formbuilder = inject(FormBuilder)
+  private userService = inject(UserService)
+  private router = inject(Router)
+
+  errorMessage: string = '';
+  successMessage: string = '';
 
   ngOnInit(): void {
     this.registerForm = this.formbuilder.group({
@@ -28,13 +36,44 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
-    })
+    }, { validator: this.passwordMatchValidator })
+  }
+
+  private passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const passwordConfirm = formGroup.get('passwordConfirm')?.value;
+    return password === passwordConfirm ? null : { mismatch: true };
+  }
+
+  gotologin(){
+    this.router.navigateByUrl('login')
   }
 
   onSubmit(){
-    if(this.registerForm.valid){
-      console.log(this.registerForm.controls['username'].value)
+    this.errorMessage = ''
+    this.successMessage = ''
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Please fill all fields correctly.';
+      return;
     }
+
+    const { username, email, password } = this.registerForm.value;
+    const newUser: User = { id : 0, username, email, password, role: 'user' };
+
+    function delay(ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    this.userService.registerUser(newUser).subscribe({
+      next: async () => {
+        this.successMessage = `User registered successfully!`;
+        this.registerForm.reset();
+        await delay(3000);
+        this.gotologin()
+      },
+      error: (err) => this.errorMessage = err.message
+    });
+
   }
   
 }

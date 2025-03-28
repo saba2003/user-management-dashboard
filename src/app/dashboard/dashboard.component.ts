@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
 
@@ -14,6 +14,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 })
 export class DashboardComponent {
   menu: MenuItem[];
+  router = inject(Router)
 
   constructor() {
     this.menu = [
@@ -23,15 +24,16 @@ export class DashboardComponent {
   }
 
   profile(){
-
+    this.router.navigateByUrl(`dashboard/${localStorage.getItem("user")}`);
   }
 
   dashboard(){
-    
+    this.router.navigateByUrl("dashboard");
   }
 
   logOut(){
-
+    this.router.navigateByUrl("login");
+    localStorage.removeItem('currentUser');
   }
 
 }

@@ -1,6 +1,16 @@
 {
-    "users": [
-        { "id": "1", "username": "saba", "email": "admin@mail.com", "role": "admin" },
-        { "id": "2", "username": "luka", "email": "user@mail.com", "role": "user" }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "username": "saba",
+      "email": "admin@mail.com",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "luka",
+      "email": "user@mail.com",
+      "role": "user"
+    }
+  ]
 }

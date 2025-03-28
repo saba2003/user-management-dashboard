@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IUser } from '../models/IUser.model';
@@ -10,9 +10,9 @@ import { IUser } from '../models/IUser.model';
 export class UserService {
   private apiUrl = 'http://localhost:3000/users';
   private usersSubject = new BehaviorSubject<IUser[]>([]);
-  users$ = this.usersSubject.asObservable();
+  private http = inject(HttpClient)
 
-  constructor(private http: HttpClient) {}
+  users$ = this.usersSubject.asObservable();
 
   fetchUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.apiUrl).pipe(
