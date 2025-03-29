@@ -70,11 +70,12 @@ The application also implements **guards** for authentication and role-based acc
 - **HTTPClient**: Used to communicate with the backend API.
 
 
-- ### Clone the repository
+- ### Clone the repository and install dependencies
 ```bash
 
 git clone https://github.com/saba2003/user-management-dashboard.git 
 cd user-management-dashboard
+npm install
 
 ```
 
