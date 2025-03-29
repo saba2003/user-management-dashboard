@@ -4,11 +4,14 @@ import { ReactiveFormsModule, FormBuilder, FormsModule, FormGroup, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { AuthService } from '../../../auth/services/auth.service'; 
 import { IUser, User } from '../../../models/IUser.model';
 import { UserService } from '../../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+/**
+ * Component for editing user details.
+ * Allows an admin or the user themselves to update their username and password.
+ */
 @Component({
   selector: 'app-user-edit',
   imports: [
@@ -22,16 +25,25 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './user-edit.component.html'
 })
 export class UserEditComponent {
+  /** Form for editing user details */
   editForm!: FormGroup;
+
+  /** Injected services */
   private formbuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  /** The user being edited */
   user!: IUser;
+
+  /** Signals for success and error messages */
   successMessage: WritableSignal<string> = signal('');
   errorMessage: WritableSignal<string> = signal('');
 
+  /**
+   * Lifecycle hook: Initializes the component, fetching user details based on route parameter.
+   */
   ngOnInit(): void {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     if (userId) {
@@ -42,7 +54,10 @@ export class UserEditComponent {
     }
   }
 
-  private initForm() {
+  /**
+   * Initializes the form with the user's current details.
+   */
+  private initForm(): void {
     this.editForm = this.formbuilder.group({
       username: [this.user.username, Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -50,13 +65,22 @@ export class UserEditComponent {
     }, { validator: this.passwordMatchValidator });
   }
 
-  private passwordMatchValidator(formGroup: FormGroup) {
+  /**
+   * Custom validator to ensure password and confirm password match.
+   * @param {FormGroup} formGroup - The form group containing password fields.
+   * @returns {null | { mismatch: boolean }} Validation result (null if valid).
+   */
+  private passwordMatchValidator(formGroup: FormGroup): null | { mismatch: boolean } {
     const password = formGroup.get('password')?.value;
     const passwordConfirm = formGroup.get('passwordConfirm')?.value;
     return password === passwordConfirm ? null : { mismatch: true };
   }
 
-  onSubmit() {
+  /**
+   * Handles form submission, updating the user details.
+   * Displays success or error messages accordingly.
+   */
+  onSubmit(): void {
     this.errorMessage.set('');
     this.successMessage.set('');
 

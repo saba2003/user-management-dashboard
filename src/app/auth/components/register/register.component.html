@@ -1,78 +1,78 @@
 <div class="flex justify-center items-center min-h-screen">
-    <form 
-      class="bg-gray-900 p-6 rounded-lg shadow-md w-full max-w-md"
-      [formGroup]="registerForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <h2 class="text-2xl font-semibold text-center mb-4">Register</h2>
+  <form 
+    class="bg-gray-900 p-6 rounded-lg shadow-md w-full max-w-md"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <h2 class="text-2xl font-semibold text-center mb-4">Register</h2>
+    <div class="space-y-8">
+      <p-floatlabel>
+        <input 
+          type="text" 
+          formControlName="username"
+          pInputText
+          id="username"
+          class="w-full"
+        >
+        <label for="over_label">Enter Username</label>
+      </p-floatlabel>
+
+      <p-floatlabel>
+        <input 
+          type="text" 
+          formControlName="email"
+          pInputText
+          id="email"
+          class="w-full"
+        >
+        <label for="over_label">Enter Email</label>
+      </p-floatlabel>
+
+      <p-floatlabel>
+        <input 
+          type="password" 
+          formControlName="password"
+          pInputText
+          id="password"
+          class="w-full"
+        >
+        <label for="over_label">Enter Password (Min 6 characters)</label>
+      </p-floatlabel>
+
+      <p-floatlabel>
+        <input 
+          type="password" 
+          formControlName="passwordConfirm"
+          pInputText
+          id="passwordConfirm"
+          class="w-full"
+        >
+        <label for="over_label">Confirm Password</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="flex justify-center mt-4">
+      <p-button 
+        type="submit" 
+        label="Submit" 
+        class="w-full max-w-xs flex justify-center" 
+        [disabled]="registerForm.invalid"
+      />
+    </div>
+
+    <p class="text-center mt-2">
+      Already registered? 
+      <a class="text-blue-500 cursor-pointer" (click)="gotologin()">Login</a>
+    </p>
+
+    <p *ngIf="errorMessage() && !successMessage()" class="text-red-600 text-center mt-2">
+      {{ errorMessage() }}
+    </p>
+
+    <p *ngIf="successMessage() && !errorMessage()" class="text-green-600 text-center mt-2">
+      {{ successMessage() }}
+    </p>
+  </form>
+</div>
   
-      <div class="space-y-8">
-        <p-floatlabel>
-          <input 
-            type="text" 
-            formControlName="username"
-            pInputText
-            id="username"
-            class="w-full"
-          >
-          <label for="over_label">Enter Username</label>
-        </p-floatlabel>
-  
-        <p-floatlabel>
-          <input 
-            type="text" 
-            formControlName="email"
-            pInputText
-            id="email"
-            class="w-full"
-          >
-          <label for="over_label">Enter Email</label>
-        </p-floatlabel>
-  
-        <p-floatlabel>
-          <input 
-            type="password" 
-            formControlName="password"
-            pInputText
-            id="password"
-            class="w-full"
-          >
-          <label for="over_label">Enter Password (Min 6 characters)</label>
-        </p-floatlabel>
-  
-        <p-floatlabel>
-          <input 
-            type="password" 
-            formControlName="passwordConfirm"
-            pInputText
-            id="passwordConfirm"
-            class="w-full"
-          >
-          <label for="over_label">Confirm Password</label>
-        </p-floatlabel>
-      </div>
-  
-      <div class="flex justify-center mt-4">
-        <p-button 
-          type="submit" 
-          label="Submit" 
-          class="w-full max-w-xs flex justify-center" 
-          [disabled]="registerForm.invalid"
-        />
-      </div>
-  
-      <p class="text-center mt-2">
-        Already registered? 
-        <a class="text-blue-500 cursor-pointer" (click)="gotologin()">Login</a>
-      </p>
-  
-      <p *ngIf="errorMessage() && !successMessage()" class="text-red-600 text-center mt-2">
-        {{ errorMessage() }}
-      </p>
-  
-      <p *ngIf="successMessage() && !errorMessage()" class="text-green-600 text-center mt-2">
-        {{ successMessage() }}
-      </p>
-    </form>
-  </div>
-  
+    

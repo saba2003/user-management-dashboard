@@ -13,6 +13,13 @@
       "email": "user@mail.com",
       "password": "123321",
       "role": "user"
+    },
+    {
+      "id": "3",
+      "username": "saba",
+      "email": "incorrect@mail",
+      "password": "321321",
+      "role": "user"
     }
   ]
 }

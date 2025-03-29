@@ -1,0 +1,6 @@
+{
+    "out": "doc",
+    "theme": "default",
+    "entryPoints": ["./src"]
+}
+  

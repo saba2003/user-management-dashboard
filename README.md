@@ -1,59 +1,87 @@
-# UserManagementDashboard
+### User Management Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.2.
+## Overview
 
-## Development server
+  
 
-To start a local development server, run:
+This project is a **User Management Dashboard** built with **Angular 19**, **PrimeNG**, and **Tailwind CSS**. It provides functionalities for user registration, authentication, role-based access control, user profile management, and admin functionalities such as user CRUD operations.
 
+The application also implements **guards** for authentication and role-based access, making sure that only authorized users can access the appropriate pages.
+
+
+## Design choices
+
+- **Navbar abscence**: for simplicity and more intuitivity there's a simple dropdown on the dashboard instead of a navbar/sidebar
+
+- **Simple user management**: admins see all the users and can interact with them: view details, edit, delete
+
+- **Non-admin users**: Non-admin users do not see other users and can only interact with their own profile details and if they try to navigate to other routes they are rerouted back.
+
+
+## Features
+
+  
+
+- **User Registration**: Users can register using a form with username, email, and password.
+
+- **Login & Logout**: A login form that allows registered users to sign in and navigate through the dashboard.
+
+- **Role-Based Access Control (RBAC)**: The app differentiates between `admin` and `user` roles, where only admins can manage users.
+
+- **User Profile**: Each user has their own profile page that they can view and edit.
+
+- **User Management for Admins**: Admin users can view, edit, and delete users.
+
+- **Guard-based Navigation**: The app ensures proper access control with guards like `authGuard`, `adminGuard`, and `userGuard`.
+  
+
+## Architecture
+
+  
+
+- **Component-based Architecture**: Components are designed to follow Angular’s modular system. Each feature (user list, user details, etc.) has its own component.
+
+- **Service Layer**: Services like `UserService` handle all interactions with backend APIs and data storage.
+
+- **Routing**: Angular's **Router** handles navigation between pages. Guards are used to prevent unauthorized access.
+
+- **Reactive Forms**: Angular's `ReactiveForms` are used to handle form validations for user registration, login, and profile update.
+
+
+## Technologies Used
+
+  
+
+- **Angular 19**: The front-end framework for building the single-page application (SPA).
+
+- **PrimeNG**: A UI component library for Angular.
+
+- **Tailwind CSS**: A utility-first CSS framework for styling the app.
+
+- **RxJS**: Reactive programming library for managing asynchronous operations.
+
+- **HTTPClient**: Used to communicate with the backend API.
+
+
+- ### Clone the repository
 ```bash
-ng serve
+
+git clone https://github.com/saba2003/user-management-dashboard.git 
+cd user-management-dashboard
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+Run the application
 ```bash
-ng generate component component-name
+
+npm start
+
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+Go to the db directory and run the json server
 ```bash
-ng generate --help
+
+cd src/app/db
+json-server users.json
+
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
