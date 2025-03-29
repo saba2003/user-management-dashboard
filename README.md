@@ -86,7 +86,7 @@ npm start
 
 ```
 
-Go to the db directory and run the json server
+Open the project in a seperate terminal go to the project's db directory and run the json server
 ```bash
 
 cd src/app/db
