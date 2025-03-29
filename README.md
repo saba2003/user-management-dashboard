@@ -13,18 +13,25 @@ The application also implements **guards** for authentication and role-based acc
 
 - **Navbar abscence**: for simplicity and more intuitivity there's a simple dropdown on the dashboard instead of a navbar/sidebar
 
+![navigation](https://github.com/user-attachments/assets/c236f521-eb7b-47c7-920d-d21ac6255f2a)
+
 - **Simple user management**: admins see all the users and can interact with them: view details, edit, delete
+
+![dashboard small](https://github.com/user-attachments/assets/fb17989a-addb-40be-970e-c7f0375c0b55)
 
 - **Non-admin users**: Non-admin users do not see other users and can only interact with their own profile details and if they try to navigate to other routes they are rerouted back.
 
+![user details](https://github.com/user-attachments/assets/1747170b-d710-43cc-95f7-a5c2744d5d50)
 
 ## Features
 
-  
-
 - **User Registration**: Users can register using a form with username, email, and password.
 
+  ![register](https://github.com/user-attachments/assets/a3cabc3f-4232-434f-897a-5fe250fcd0c5)
+
 - **Login & Logout**: A login form that allows registered users to sign in and navigate through the dashboard.
+
+  ![error handling](https://github.com/user-attachments/assets/e7db34e7-fb2b-42da-a730-f3886b774427)
 
 - **Role-Based Access Control (RBAC)**: The app differentiates between `admin` and `user` roles, where only admins can manage users.
 
