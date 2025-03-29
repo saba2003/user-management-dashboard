@@ -16,8 +16,7 @@ import { ButtonModule } from 'primeng/button';
     SkeletonModule,
     ButtonModule
   ],
-  templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.css'
+  templateUrl: './user-details.component.html'
 })
 export class UserDetailsComponent implements OnInit {
   user: IUser | null = null;
@@ -35,7 +34,13 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  async deleteUser(id: string){
+  editUser(){
+    if (this.user) {
+      this.router.navigate(['dashboard/users', this.user.id, 'edit']);
+    }
+  }
+
+  deleteUser(id: string){
     this.userService.deleteUser(Number.parseInt(id));
     this.router.navigateByUrl('dashboard');
   }

@@ -15,8 +15,8 @@
                 <td class="p-2">{{ user.email }}</td>
                 <td class="p-2 flex gap-2 justify-center">
                     <p-button icon="pi pi-eye" aria-label="Details" (click)="details(user.id)"></p-button>
-                    <p-button icon="pi pi-user-edit" severity="warn" aria-label="Edit" ></p-button>
-                    <p-button icon="pi pi-trash" severity="danger" aria-label="Delete" ></p-button>
+                    <p-button icon="pi pi-user-edit" severity="warn" aria-label="Edit" (click)="edit(user.id)"></p-button>
+                    <p-button icon="pi pi-trash" severity="danger" aria-label="Delete" (click)="deleteUser(user.id)"></p-button>
                 </td>
             </tr>
         </tbody>

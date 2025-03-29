@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ import { UserService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   private formbuilder = inject(FormBuilder)
-  private userService = inject(UserService)
+  private authService = inject(AuthService)
 
   successMessage: WritableSignal<string> = signal('');
   errorMessage: WritableSignal<string> = signal('');
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   gotoregister(){
-    this.userService.navigateTo("register")
+    this.authService.navigateTo("register")
   }
 
   onSubmit(){
@@ -43,11 +43,11 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
 
-    this.userService.login(email, password).subscribe({
+    this.authService.login(email, password).subscribe({
       next: async () => {
         this.successMessage.set(`Logged in successfully!`);
         this.loginForm.reset();
-        this.userService.navigateTo("dashboard")
+        this.authService.navigateTo("dashboard")
       },
       error: (err) => this.errorMessage.set(err.message) 
     });

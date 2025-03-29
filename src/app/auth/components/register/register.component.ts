@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormsModule, FormGroup, Validators } 
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../../../models/IUser.model';
 
 @Component({
@@ -22,7 +22,7 @@ import { User } from '../../../models/IUser.model';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   private formbuilder = inject(FormBuilder)
-  private userService = inject(UserService)
+  private authService = inject(AuthService)
 
   successMessage: WritableSignal<string> = signal('');
   errorMessage: WritableSignal<string> = signal('');
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   }
 
   gotologin(){
-    this.userService.navigateTo("login")
+    this.authService.navigateTo("login")
   }
 
   onSubmit(){
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     this.successMessage.set('')
 
     const { username, email, password } = this.registerForm.value;
-    this.userService.getUserCount().subscribe(count => {
+    this.authService.getUserCount().subscribe(count => {
       const newUser: User = { 
         id: (count + 1).toString(),
         username, 
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
         role: 'user' 
       };
     
-      this.userService.registerUser(newUser).subscribe({
+      this.authService.registerUser(newUser).subscribe({
         next: async () => {
           this.successMessage.set(`User registered successfully!`);
           this.registerForm.reset();

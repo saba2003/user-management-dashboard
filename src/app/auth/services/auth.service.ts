@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
   private apiUrl = 'http://localhost:3000/users';
   private http = inject(HttpClient)
   private router = inject(Router)

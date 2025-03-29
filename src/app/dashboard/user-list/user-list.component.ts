@@ -25,12 +25,21 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 export class UserListComponent {
   users$: Observable<IUser[] | undefined>;
   private router: Router = inject(Router)
+  private service = inject(UserService)
 
-  constructor(service: UserService){
-    this.users$ = service.getUsers();
+  constructor(){
+    this.users$ = this.service.getUsers();
   }
 
   details(id: string){
     this.router.navigateByUrl(`dashboard/users/${id}`);
+  }
+
+  edit(id: string){
+    this.router.navigateByUrl(`dashboard/users/${id}/edit`);
+  }
+
+  deleteUser(id: string){
+    this.service.deleteUser(Number.parseInt(id))
   }
 }

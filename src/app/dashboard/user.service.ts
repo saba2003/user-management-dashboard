@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription, throwError, timer } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { IUser } from '../models/IUser.model';
 
 @Injectable({
@@ -32,6 +32,13 @@ export class UserService {
 
   getUsers(): Observable<IUser[]> {
     return this.users$.asObservable()
+  }
+
+  updateUser(updatedUser: IUser): Observable<IUser> {
+    return this.http.put<IUser>(`${this.apiUrl}/${updatedUser.id}`, updatedUser).pipe(
+      tap(user => console.log('User updated:', user)),
+      catchError(error => throwError(() => error))
+    );
   }
 
   deleteUser(id: number) {

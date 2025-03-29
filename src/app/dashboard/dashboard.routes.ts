@@ -14,4 +14,8 @@ export const dashboardRoutes: Routes = [
         path: 'users/:id', 
         loadComponent: () => import('./user-details/user-details.component').then(c => c.UserDetailsComponent)
     },
+    { 
+        path: 'users/:id/edit', 
+        loadComponent: () => import('./user-details/user-edit/user-edit.component').then(c => c.UserEditComponent)
+    },
 ];

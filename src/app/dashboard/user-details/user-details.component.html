@@ -8,7 +8,7 @@
   </p>
   <ng-template #footer>
     <div class="flex gap-4 mt-1">
-      <p-button label="Edit" severity="info" class="w-full" [outlined]="true" styleClass="w-full" />
+      <p-button label="Edit" severity="info" class="w-full" [outlined]="true" styleClass="w-full" (onClick)="editUser()"/>
       <p-button label="Delete" severity="danger" class="w-full" styleClass="w-full" (onClick)="deleteUser(user.id)"/>
     </div>
   </ng-template>
